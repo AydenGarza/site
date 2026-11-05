@@ -4,6 +4,7 @@ import { About } from './pages/About';
 import { Projects } from './pages/Projects';
 import { Career } from './pages/Career';
 import { NavIcon } from './components/NavIcon';
+import { ThemeToggle } from './components/ThemeToggle';
 import './styles.css';
 
 const pages = [
@@ -35,5 +36,6 @@ createRoot(document.getElementById('root')!).render(
       </nav>
     </header>
     <main id="content" tabIndex={-1}>{Page ? <Page /> : <h1>Page not found</h1>}</main>
+    <ThemeToggle />
   </>,
 );
