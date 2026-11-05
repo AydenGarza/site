@@ -12,8 +12,6 @@
   --selected-shadow: 0 2px 5px #252b4010, 0 0 0 1px #33384d05, inset 0 1px 0 #fff;
   --hover: #ffffff8c;
   --selected-hover: #fff;
-  --glow-blue: #e5eaf5a6;
-  --glow-violet: #eee6f4a1;
   --focus: #626caa;
   --tooltip: #fefefef0;
   --safe-top: env(safe-area-inset-top, 0px);
@@ -47,8 +45,6 @@
     0 0 0 1px #ffffff06;
   --hover: #ffffff09;
   --selected-hover: #ffffff18;
-  --glow-blue: #26355252;
-  --glow-violet: #3b285b45;
   --focus: #b4aff0;
   --tooltip: #252630f5;
 }
@@ -63,21 +59,6 @@ body {
   background-color: var(--page);
   isolation: isolate;
 }
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(ellipse 55% 45% at 20% 0%, var(--glow-blue), transparent),
-    radial-gradient(ellipse 45% 40% at 80% 0%, var(--glow-violet), transparent);
-  /* Meet Safari's solid status-bar backdrop without a hard gradient edge. */
-  -webkit-mask-image: linear-gradient(to bottom,
-    transparent var(--safe-top), #000 calc(var(--safe-top) + 140px));
-  mask-image: linear-gradient(to bottom,
-    transparent var(--safe-top), #000 calc(var(--safe-top) + 140px));
-  pointer-events: none;
-}
-
 .nav-position {
   position: fixed;
   z-index: 10;
