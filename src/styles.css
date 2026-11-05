@@ -70,6 +70,11 @@ body::before {
   z-index: -1;
   background: radial-gradient(ellipse 55% 45% at 20% 0%, var(--glow-blue), transparent),
     radial-gradient(ellipse 45% 40% at 80% 0%, var(--glow-violet), transparent);
+  /* Meet Safari's solid status-bar backdrop without a hard gradient edge. */
+  -webkit-mask-image: linear-gradient(to bottom,
+    transparent var(--safe-top), #000 calc(var(--safe-top) + 140px));
+  mask-image: linear-gradient(to bottom,
+    transparent var(--safe-top), #000 calc(var(--safe-top) + 140px));
   pointer-events: none;
 }
 
