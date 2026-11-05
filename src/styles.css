@@ -1,4 +1,12 @@
 :root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --nav-top: 28px;
+  --content-top: 140px;
+  --content-side: 28px;
+  --content-bottom: 40px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #282a30;
   background: #f7f8fa;
@@ -8,7 +16,15 @@
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 240px; }
+html { min-height: 100%; }
+body {
+  margin: 0;
+  min-width: 240px;
+  min-height: 100vh;
+  min-height: 100svh;
+  background-color: #f7f8fa;
+  isolation: isolate;
+}
 body::before {
   content: '';
   position: fixed;
@@ -22,12 +38,13 @@ body::before {
 .nav-position {
   position: fixed;
   z-index: 10;
-  top: calc(28px + env(safe-area-inset-top));
+  top: calc(var(--nav-top) + var(--safe-top));
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
-  padding-inline: 16px;
+  padding-left: calc(16px + var(--safe-left));
+  padding-right: calc(16px + var(--safe-right));
   pointer-events: none;
 }
 
@@ -79,15 +96,22 @@ body::before {
   outline-offset: 3px;
 }
 .nav-tooltip { display: none; }
-main { padding: 140px 28px 40px; max-width: 1100px; margin: auto; }
+main {
+  padding: calc(var(--content-top) + var(--safe-top))
+    calc(var(--content-side) + var(--safe-right))
+    calc(var(--content-bottom) + var(--safe-bottom))
+    calc(var(--content-side) + var(--safe-left));
+  max-width: 1100px;
+  margin: auto;
+}
 main:focus { outline: none; }
 h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 500; letter-spacing: -1.5px; }
 .skip-link {
   position: fixed;
-  top: 8px;
-  left: 8px;
+  top: calc(8px + var(--safe-top));
+  left: calc(8px + var(--safe-left));
   z-index: 20;
-  transform: translateY(-150%);
+  transform: translateY(calc(-150% - var(--safe-top)));
   padding: 10px 14px;
   background: #fff;
   color: #242730;
@@ -96,7 +120,12 @@ h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 500; letter-spacing: -1.5px
 .skip-link:focus { transform: translateY(0); }
 
 @media (max-width: 520px) {
-  .nav-position { top: calc(20px + env(safe-area-inset-top)); }
+  :root {
+    --nav-top: 20px;
+    --content-top: 128px;
+    --content-side: 24px;
+    --content-bottom: 32px;
+  }
   .glass-nav { gap: 6px; padding: 6px; border-radius: 22px; }
   .nav-link { width: 52px; min-height: 48px; padding: 0; }
   .nav-label { display: none; }
@@ -118,7 +147,6 @@ h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 500; letter-spacing: -1.5px
     transition: opacity 150ms ease, transform 150ms ease;
   }
   .nav-link:focus-visible .nav-tooltip { opacity: 1; transform: translate(-50%, 0); }
-  main { padding: 128px 24px 32px; }
 }
 @media (max-width: 300px) {
   .nav-link { width: 44px; }
